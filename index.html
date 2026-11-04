@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emily Fourney</title>
+<meta name="description" content="Emily Fourney — PhD candidate in Control and Dynamical Systems at Caltech, working on safety filters for robot manipulators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    --paper: #F6F7F4;
+    --ink: #1C2630;
+    --ink-soft: #4A5663;
+    --rule: #D3D8D1;
+    --teal: #0E6B66;
+    --teal-tint: #E3EFEC;
+    --max: 68rem;
+    --measure: 38rem;
+    --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #141A1F;
+      --ink: #E8ECE9;
+      --ink-soft: #A5AFB8;
+      --rule: #2C353D;
+      --teal: #5FC2B8;
+      --teal-tint: #1B2F30;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #141A1F; --ink: #E8ECE9; --ink-soft: #A5AFB8;
+    --rule: #2C353D; --teal: #5FC2B8; --teal-tint: #1B2F30;
+  }
+
+  /* ---------- base ---------- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--teal) 40%, transparent); }
+  a:hover { border-bottom-color: var(--teal); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3 { font-weight: 500; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  h2 { font-size: 1.75rem; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.125rem; }
+  p { margin: 0 0 1rem; max-width: var(--measure); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 1rem; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 3.5rem; }
+  nav .name { font-weight: 600; color: var(--ink); border: 0; white-space: nowrap; }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+  nav ul a { color: var(--ink-soft); border: 0; font-size: 0.95rem; }
+  nav ul a:hover { color: var(--teal); }
+  @media (max-width: 600px) { nav ul { gap: 1rem; font-size: 0.9rem; } nav ul li:nth-child(n+4) { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 4rem 0 3rem; border-bottom: 1px solid var(--rule); }
+  .banner { margin: 0 0 2.5rem; max-width: none; }
+  .banner video, .banner img { display: block; width: 100%; height: auto; border-radius: 8px; background: var(--teal-tint); }
+  .banner figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.6rem; }
+  .intro { display: grid; grid-template-columns: auto 1fr; gap: 1.75rem; align-items: center; }
+  @media (max-width: 500px) { .intro { grid-template-columns: 1fr; gap: 1rem; } }
+  .headshot { display: block; width: 7rem; height: 7rem; object-fit: cover; object-position: 50% 12%; border-radius: 50%; }
+  @media (max-width: 500px) { .headshot { width: 6rem; height: 6rem; } }
+  .hero h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 300; letter-spacing: -0.025em; }
+  .hero .role { font-size: 1.05rem; color: var(--ink-soft); margin: 0.6rem 0 0.9rem; max-width: none; }
+  .hero .lede { font-size: 1.2rem; line-height: 1.5; max-width: none; margin-bottom: 0; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-top: 1.1rem; padding: 0; list-style: none; }
+  .links a { font-weight: 500; }
+
+  /* research figure */
+  .diagram { margin: 0 0 2.5rem; max-width: 44rem; }
+  .diagram img { display: block; width: 100%; height: auto; border-radius: 6px; }
+  .diagram figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.6rem; }
+
+  /* ---------- sections ---------- */
+  section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  .two-col { display: grid; grid-template-columns: 14rem 1fr; gap: 2rem; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; gap: 0.5rem; } }
+  .two-col h2 { font-size: 1.1rem; color: var(--ink-soft); font-weight: 500; margin-top: 0.25rem; }
+
+  /* research */
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2.5rem 2rem; margin: 0; padding: 0; list-style: none; }
+  .projects h3 { margin-bottom: 0.5rem; }
+  .projects p { font-size: 0.98rem; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .projects .tags { font-size: 0.85rem; color: var(--ink-soft); }
+  .projects .tags span { background: var(--teal-tint); color: var(--teal); padding: 0.1rem 0.5rem; border-radius: 999px; margin-right: 0.35rem; display: inline-block; }
+
+  /* publications */
+  .pubs { list-style: none; margin: 0; padding: 0; }
+  .pubs li { padding: 1.1rem 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+  .pubs li:first-child { border-top: 0; padding-top: 0; }
+  .pubs .year { color: var(--ink-soft); font-size: 0.95rem; padding-top: 0.15rem; }
+  .pubs .title { font-weight: 500; }
+  .pubs .authors { color: var(--ink-soft); font-size: 0.95rem; margin: 0.15rem 0; }
+  .pubs .authors em { font-style: normal; color: var(--ink); }
+  .pubs .venue { font-size: 0.95rem; }
+  .pubs .pub-links { font-size: 0.9rem; margin-top: 0.35rem; display: flex; gap: 1rem; }
+  .pubs .note { font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.6rem; }
+  .pub-group { margin-top: 2.5rem; }
+  .pub-group:first-child { margin-top: 0; }
+  .pub-group h3 { color: var(--ink-soft); font-weight: 500; font-size: 1rem; margin-bottom: 0.75rem; }
+
+  /* teaching / list sections */
+  .plain { list-style: none; margin: 0; padding: 0; }
+  .plain li { padding: 0.75rem 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; }
+  .plain li:first-child { border-top: 0; padding-top: 0; }
+  .plain .when { color: var(--ink-soft); font-size: 0.95rem; }
+  @media (max-width: 500px) { .plain li, .pubs li { grid-template-columns: 1fr; gap: 0.25rem; } }
+
+  /* contact + footer */
+  .contact p { font-size: 1.15rem; }
+  footer { padding: 2rem 0 3rem; color: var(--ink-soft); font-size: 0.9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; }
+  footer button { background: none; border: 1px solid var(--rule); color: var(--ink-soft); font: inherit; padding: 0.25rem 0.7rem; border-radius: 999px; cursor: pointer; }
+  footer button:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* template placeholders — delete this rule once the copy is real */
+  .todo { background: #FFF2C6; color: #5C4A00; padding: 0 0.25rem; border-radius: 3px; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .todo { background: #3D3214; color: #F0DB94; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="name" href="#top">Emily Fourney</a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="cv.pdf">CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="intro">
+      <img class="headshot" src="photo.jpg" alt="Emily Fourney" width="1200" height="1800" loading="eager">
+      <div>
+        <h1>Emily Fourney</h1>
+        <p class="role">PhD candidate, Control and Dynamical Systems · California Institute of Technology · Kortschak Scholar</p>
+        <p class="lede">I work on tractable, deployable, safe, and risk-aware robotics algorithms for manipulation and more.</p>
+        <ul class="links">
+          <li><a href="mailto:efourney@caltech.edu">Email</a></li>
+          <li><a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Fourney%2C+E">arXiv</a></li>
+          <li><a href="https://www.linkedin.com/in/emily-fourney/">LinkedIn</a></li>
+          <li><a href="cv.pdf">CV (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="research">
+  <div class="wrap two-col">
+    <h2>Research</h2>
+    <div>
+    <figure class="banner diagram">
+      <video autoplay muted loop playsinline poster="vlpsa-poster.jpg" aria-label="A Franka arm picks up a cereal box on a cluttered table while, alongside, the safety filter's view shows the arm over the occupancy map of the scene">
+        <source src="vlpsa.mp4" type="video/mp4">
+        <img src="vlpsa-poster.jpg" alt="">
+      </video>
+      <figcaption>VLPSA on a Franka FR3: the policy's view (left) and the safety filter's occupancy map (right). <a href="https://arxiv.org/abs/2609.22462">arXiv</a></figcaption>
+    </figure>
+    <ul class="projects">
+      <li>
+        <h3>VLPSA: safety filtering for learned policies</h3>
+        <p>A safety filter for vision-language-action policies that enforces full-body collision avoidance, including any grasped object, without retraining the policy. Dual-resolution Poisson safety functions composed as Boolean CBFs keep the filter real-time. On SafeLIBERO, collision avoidance for π0.5 rises from 23% to 91% with safe success rates preserved; deployed on hardware with dynamic obstacles.</p>
+        <p class="tags"><span>VLA policies</span><span>safety filtering</span><span>SafeLIBERO</span></p>
+      </li>
+      <li>
+        <h3>Grasp risk</h3>
+        <p>Flow matching is used to learn the uncertainty distributions inherent in RGB-D sensing that are relevant to grasp success. Novel uncertainty quantification and propagation yields bounds on risk metrics for grasp analysis. In progress.</p>
+        <p class="tags"><span>flow matching</span><span>grasp analysis</span><span>uncertainty quantification</span></p>
+      </li>
+      <li>
+        <h3>Full-body dynamic safety for manipulators</h3>
+        <p>A 3D Poisson safety function is solved online from an occupancy map and used as a control barrier function over every link of the arm, with a novel sample-and-buffer method. The resulting CBF-QP filter runs at around 200 Hz on a Franka FR3 and handles fast dynamic obstacles. IROS 2026.</p>
+        <p class="tags"><span>control barrier functions</span><span>Poisson safety functions</span><span>Franka FR3</span></p>
+      </li>
+      <li>
+        <h3>Optimal multi-target sensory coverage</h3>
+        <p>Shortest-path planning for a mobile robot that must observe a set of targets with a limited-range sensor, in open environments and among obstacles. The three problem variants are posed as MINLPs; polynomial-time approximations are given with proven bounds on the gap to the optimal path length.</p>
+        <p class="tags"><span>coverage planning</span><span>MINLP</span><span>approximation bounds</span></p>
+      </li>
+    </ul>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap two-col">
+    <h2>Publications</h2>
+    <div>
+      <div class="pub-group">
+        <h3>Papers</h3>
+        <ul class="pubs">
+          <li>
+            <span class="year">2026</span>
+            <div>
+              <div class="title">VLPSA: Vision-Language-Poisson-Safe Actions for Full-Body Safety of Learned Policies</div>
+              <div class="authors">Meg Wilkinson*, <em>Emily Fourney*</em>, Joel W. Burdick, Aaron D. Ames</div>
+              <div class="venue">arXiv preprint, September 2026</div>
+              <div class="pub-links"><a href="https://arxiv.org/abs/2609.22462">arXiv</a></div>
+            </div>
+          </li>
+          <li>
+            <span class="year">2026</span>
+            <div>
+              <div class="title">Full-Body Dynamic Safety for Robot Manipulators: 3D Poisson Safety Functions for CBF-Based Safety Filters</div>
+              <div class="authors">Meg Wilkinson, Gilbert Bahati, Ryan M. Bena, <em>Emily Fourney</em>, Joel W. Burdick, Aaron D. Ames</div>
+              <div class="venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Pittsburgh</div>
+              <div class="pub-links"><a href="https://arxiv.org/abs/2604.21189">arXiv</a><a href="https://fullbodysafety.github.io/">project page</a><a href="https://lnkd.in/p/gAH72Cnf">IROS 2026 talk</a></div>
+            </div>
+          </li>
+          <li>
+            <span class="year">2024</span>
+            <div>
+              <div class="title">Mobile Robot Sensory Coverage in 2-D Environments: An Optimization Approach with Efficiency Bounds</div>
+              <div class="authors"><em>Emily Fourney</em>, Joel W. Burdick, Elon D. Rimon</div>
+              <div class="venue">arXiv preprint, May 2024</div>
+              <div class="pub-links"><a href="https://arxiv.org/abs/2405.15100">arXiv</a><a href="https://github.com/efourney">code</a></div>
+            </div>
+          </li>
+          <li>
+            <span class="year">2020</span>
+            <div>
+              <div class="title">Elephant Trunk Skin: Nature's Flexible Kevlar</div>
+              <div class="authors">Andrew K. Schulz, <em>Emily Fourney</em>, Sophia Sordilla, Ajay Sukhwani, David L. Hu</div>
+              <div class="venue">IROS 2020 workshop paper, Las Vegas</div>
+              <div class="pub-links"><a href="https://www.researchgate.net/publication/363740565_Elephant_Trunk_Skin_Nature's_Flexible_Kevlar">ResearchGate</a></div>
+            </div>
+          </li>
+        </ul>
+        <p class="note">* equal contribution</p>
+      </div>
+
+      <div class="pub-group">
+        <h3>Talks and presentations</h3>
+        <ul class="pubs">
+          <li>
+            <span class="year">2021</span>
+            <div>
+              <div class="title">Wrinkles and Folds Enable Stretching of Elephant Trunk Skin</div>
+              <div class="authors"><em>Emily Fourney</em>, Ajay Sukhwani, Andrew K. Schulz, David L. Hu</div>
+              <div class="venue">Society for Integrative and Comparative Biology annual meeting, talk 23-12</div>
+              <div class="pub-links"><a href="https://sicb.org/wp-content/uploads/2021/07/2021SICBOral-PostersAbstractBook.pdf">abstract book</a></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="wrap two-col">
+    <h2>Teaching and mentoring</h2>
+    <ul class="plain">
+      <li><span class="when">2025</span><span>Research mentor, Caltech Summer Undergraduate Research Fellowship (SURF) — Jonathan Cederlund</span></li>
+      <li><span class="when">2024</span><span>Research mentor, Caltech Summer Undergraduate Research Fellowship (SURF) — Alexander Gogola</span></li>
+      <li><span class="when">2022 –</span><span>Programming mentor, FIRST Robotics Competition Team 2404</span></li>
+      <li><span class="when">2024, 2026</span><span>Teaching assistant, ME/CDS/EE 235ab — Robotics (Winter and Spring 2024; Winter and Spring 2026)</span></li>
+      <li><span class="when">2022</span><span>Teaching assistant, CDS 131 — Linear Systems Theory (Fall 2022)</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap two-col">
+    <h2>Contact</h2>
+    <div>
+      <p>Email is best: <a href="mailto:efourney@caltech.edu">efourney@caltech.edu</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Emily Fourney · Pasadena, CA</span>
+    <button type="button" id="theme" aria-label="Toggle dark mode">Dark mode</button>
+  </div>
+</footer>
+
+<script>
+  // Light/dark toggle. Remembers the choice in this browser only; falls back to the OS setting.
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('theme');
+    function label() {
+      var dark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+      btn.textContent = dark ? 'Light mode' : 'Dark mode';
+    }
+    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    label();
+    btn.addEventListener('click', function () {
+      var next = btn.textContent === 'Dark mode' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      label();
+    });
+  })();
+</script>
+</body>
+</html>
